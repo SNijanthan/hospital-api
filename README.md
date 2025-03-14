@@ -34,4 +34,7 @@
 - /patients/register → Registers a new patient
 - /patients/:id/create_report → Creates a report
 - /patients/:id/all_reports → List all the reports of a patient oldest to latest
+
+### Report Routers
+
 - /reports/:status → List all the reports of all the patients filtered by a specific status

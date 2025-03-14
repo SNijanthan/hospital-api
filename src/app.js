@@ -13,9 +13,9 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/doctors", doctorRouter);
-app.use("/patients", patientRouter);
-app.use("/reports", reportRouter);
+app.use("/", doctorRouter);
+app.use("/", patientRouter);
+app.use("/", reportRouter);
 
 connectToDB()
   .then(() => {
