@@ -13,9 +13,9 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/", doctorRouter);
-app.use("/", patientRouter);
-app.use("/", reportRouter);
+app.use("/doctors", doctorRouter);
+app.use("/patients", patientRouter);
+app.use("/reports", reportRouter);
 
 connectToDB()
   .then(() => {
@@ -25,5 +25,5 @@ connectToDB()
     });
   })
   .catch((err) => {
-    `ERROR: ${err.message}`;
+    console.error(`ERROR: ${err.message}`);
   });

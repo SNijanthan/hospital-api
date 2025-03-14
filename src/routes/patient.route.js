@@ -1,8 +1,6 @@
 const express = require("express");
 const patientRouter = express.Router();
-
 const auth = require("../middlewares/auth.middleware");
-
 const PatientSchema = require("../models/patients.model");
 const ReportSchema = require("../models/report.model");
 const { validatePatient } = require("../utils/validation.js");

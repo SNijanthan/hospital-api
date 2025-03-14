@@ -37,15 +37,15 @@ doctorRouter.post("/doctors/login", async (req, res) => {
     const existingUser = await DoctorSchema.findOne({ emailId });
 
     if (!existingUser) {
-      throw new Error("Incorrect credentials");
+      return res.status(400).json({ message: "Incorrect credentials" });
     }
 
-    const isPassowrdValid = await bcrypt.compare(
+    const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
     );
 
-    if (!isPassowrdValid) {
+    if (!isPasswordValid) {
       throw new Error("Incorrect credentials");
     }
 
@@ -54,7 +54,12 @@ doctorRouter.post("/doctors/login", async (req, res) => {
     });
 
     res
-      .cookie("Token", token)
+      .cookie("Token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+        maxAge: 24 * 60 * 60 * 1000,
+      })
       .status(200)
       .json({ message: "Logged in successfully" });
   } catch (error) {
