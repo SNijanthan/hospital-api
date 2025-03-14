@@ -50,7 +50,7 @@ patientRouter.post("/patients/:id/create_report", auth, async (req, res) => {
       throw new Error("patient does not exist");
     }
 
-    const report = new ReportSchema({
+    const report = await ReportSchema.create({
       patient: user._id,
       status,
       createdBy: loggedInUser._id,
@@ -58,7 +58,14 @@ patientRouter.post("/patients/:id/create_report", auth, async (req, res) => {
 
     await report.save();
 
-    res.status(201).json({ message: "Report created successfully", report });
+    const populatedReport = await ReportSchema.findById(report._id)
+      .populate("patient", "name phoneNumber")
+      .populate("createdBy", "name");
+
+    res.status(201).json({
+      message: "Report created successfully",
+      report: populatedReport,
+    });
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
   }
@@ -66,8 +73,6 @@ patientRouter.post("/patients/:id/create_report", auth, async (req, res) => {
 
 patientRouter.get("/patients/:id/all_reports", auth, async (req, res) => {
   try {
-    const loggedInUser = req.user;
-
     const { id } = req.params;
 
     const existingUser = await PatientSchema.findById(id);
@@ -78,8 +83,8 @@ patientRouter.get("/patients/:id/all_reports", auth, async (req, res) => {
 
     const allReports = await ReportSchema.find({ patient: id })
       .select("status createdAt")
-      .populate("patient", "name phoneNumber")
-      .populate("createdBy", "name emailId")
+      .populate("patient", "name")
+      .populate("createdBy", "name")
       .sort({ createdAt: 1 });
 
     res
@@ -89,7 +94,5 @@ patientRouter.get("/patients/:id/all_reports", auth, async (req, res) => {
     res.status(400).json({ message: `Error: ${error.message}` });
   }
 });
-
-
 
 module.exports = patientRouter;

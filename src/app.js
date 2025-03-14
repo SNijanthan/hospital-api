@@ -6,6 +6,7 @@ const connectToDB = require("./config/database.js");
 
 const doctorRouter = require("./routes/doctor.route.js");
 const patientRouter = require("./routes/patient.route.js");
+const reportRouter = require("./routes/report.route.js");
 
 const cookieParser = require("cookie-parser");
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/", doctorRouter);
 app.use("/", patientRouter);
+app.use("/", reportRouter);
 
 connectToDB()
   .then(() => {
