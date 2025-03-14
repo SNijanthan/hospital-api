@@ -4,9 +4,16 @@ const port = 7000;
 
 const connectToDB = require("./config/database.js");
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Welcome to the webpage" });
-});
+const doctorRouter = require("./routes/doctor.route.js");
+const patientRouter = require("./routes/patient.route.js");
+
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+app.use(express.json());
+
+app.use("/", doctorRouter);
+app.use("/", patientRouter);
 
 connectToDB()
   .then(() => {

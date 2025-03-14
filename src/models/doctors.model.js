@@ -28,10 +28,9 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
       minLength: 8,
-      maxLength: 50,
       validate(value) {
         if (!validator.isStrongPassword(value)) {
-          throw new Error("password is too weak.. Please change ");
+          throw new Error("password is too weak.. Please change");
         }
       },
     },
