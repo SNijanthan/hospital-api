@@ -17,29 +17,6 @@ const patientSchema = new mongoose.Schema(
       maxLength: 10,
       trim: true,
     },
-    status: {
-      type: String,
-      required: true,
-      enum: {
-        values: [
-          "Negative",
-          "Travelled-Quarantine",
-          "Symptoms-Quarantine",
-          "Positive-Admit",
-        ],
-        message: `{VALUE} is not a valid status`,
-      },
-    },
-    date: {
-      type: Date,
-      required: true,
-      default: Date.now,
-    },
-    doctor: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "Doctor",
-    },
   },
   { timestamps: true }
 );

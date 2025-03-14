@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth.middleware.js");
 
 const DoctorSchema = require("../models/doctors.model");
-const validateUser = require("../utils/validation.js");
+const { validateUser } = require("../utils/validation.js");
 
 const doctorRouter = express.Router();
 
@@ -24,7 +24,7 @@ doctorRouter.post("/doctors/register", async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "User registered successfully", user });
+    res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
   }

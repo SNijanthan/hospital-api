@@ -18,7 +18,7 @@ app.use("/", patientRouter);
 connectToDB()
   .then(() => {
     console.log("Connected to DB..!");
-    app.listen(port, (req, res) => {
+    app.listen(port, () => {
       console.log(`Connected to successfully on port ${port}`);
     });
   })
