@@ -1,0 +1,17 @@
+{
+  "name": "hospital-api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.14.1",
+    "mongoose": "^8.12.0",
+    "validator": "^13.12.0"
+  }
+}
