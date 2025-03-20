@@ -1,10 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth = require("../middlewares/auth.middleware.js");
 
 const DoctorSchema = require("../models/doctors.model");
 const { validateUser } = require("../utils/validation.js");
+
+require("dotenv").config();
 
 const doctorRouter = express.Router();
 
@@ -49,7 +50,7 @@ doctorRouter.post("/doctors/login", async (req, res) => {
       throw new Error("Incorrect credentials");
     }
 
-    const token = jwt.sign({ _id: existingUser._id }, "JWT@123", {
+    const token = jwt.sign({ _id: existingUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 

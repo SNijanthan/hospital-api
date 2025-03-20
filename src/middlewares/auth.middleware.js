@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const DoctorSchema = require("../models/doctors.model");
 
@@ -10,7 +11,7 @@ const auth = async (req, res, next) => {
       throw new Error("Session expired. Please login again...!");
     }
 
-    const decodedToken = jwt.verify(Token, "JWT@123");
+    const decodedToken = jwt.verify(Token, process.env.JWT_SECRET);
 
     const existingUser = await DoctorSchema.findById(decodedToken._id);
 
